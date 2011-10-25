@@ -1,15 +1,16 @@
 !SLIDE subsection
-
 # __Spring 3.1 and MVC Testing Support__
-<br><br>
+<br />
 ## Sam Brannen
 ### _Swiftmind_
-<br><br>
+<br />
 ## Rossen Stoyanchev
 ### _SpringSource, VMware_
+<br />
+#### SpringOne 2GX
+#### October 28, 2011
 
 !SLIDE small
-
 # __Sam Brannen__
 
 * Senior Software Consultant @ Swiftmind
@@ -20,7 +21,6 @@
 * Presenter on Spring, Java, OSGi, and testing
 
 !SLIDE small
-
 # __Rossen Stoyanchev__
 
 * Staff Engineer SpringSource, VMware
@@ -28,3 +28,12 @@
 * Teach and consult, Spring Projects
 * Spring Web course author
 * NYC area
+
+!SLIDE subsection bullets
+# Agenda
+
+* Spring TestContext Framework
+* Testing with @Configuration Classes
+* Testing with Environment Profiles
+* Spring MVC Test Support
+* Q&A

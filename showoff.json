@@ -3,6 +3,7 @@
   "description": "Overview of new testing features in Spring 3.1 as well new Spring MVC test support",
   "sections": [
     {"section":"intro"},
+    {"section":"tcf"},
     {"section":"mvc"},
     {"section":"end"}
   ]

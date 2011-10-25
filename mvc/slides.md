@@ -1,10 +1,5 @@
-
-!SLIDE subsection bullets
-# Agenda
-
-* ..
-* ..
-* __Spring MVC Test Support__
+!SLIDE subsection
+# Spring MVC Test Support
 
 !SLIDE small
 # How To Test `@Controller`?
@@ -51,7 +46,7 @@
 !SLIDE incremental
 # Ideally We'd Like To...
 
-* Test controllers ones, fully
+* Test controllers once, fully
 * Include MVC config, annotations, etc.
 * Remain lightweight and fast
 * Controller Unit Test++
@@ -60,7 +55,7 @@
 # Spring MVC Test Support
 
 * Small framework built on `spring-test`
-* No servlet container
+* No Servlet container
 * Drives Spring MVC infrastructure
 * Both server & client-side test support <br> (i.e. `RestTemplate` code)
 * Inspired by `spring-ws-test`
@@ -223,6 +218,3 @@ __Sample Tests:__<br>
 
 * Release candidate by year end
 * Possible inclusion in Spring 3.2
-
-
-
