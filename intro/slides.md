@@ -1,9 +1,9 @@
 !SLIDE subsection
 
-# __Spring 3.1 and MVC Test Support__
+# __Spring 3.1 and MVC Testing Support__
 <br><br>
 ## Sam Brannen
-### _..._
+### _Swiftmind_
 <br><br>
 ## Rossen Stoyanchev
 ### _SpringSource, VMware_
@@ -12,8 +12,12 @@
 
 # __Sam Brannen__
 
-* ..
-* ..
+* Senior Software Consultant @ Swiftmind
+* Java developer with 13+ years' experience
+* Spring Framework Core Developer
+* Lead author of _Spring in a Nutshell_
+* Previous SpringSource dm Server™ developer
+* Presenter on Spring, Java, OSGi, and testing
 
 !SLIDE small
 
