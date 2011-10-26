@@ -11,7 +11,7 @@
 #### October 28, 2011
 
 
-!SLIDE small
+!SLIDE small incremental
 # __Sam Brannen__
 
 * Senior Software Consultant @ Swiftmind
@@ -22,7 +22,7 @@
 * Presenter on Spring, Java, OSGi, and testing
 
 
-!SLIDE small
+!SLIDE small incremental
 # __Rossen Stoyanchev__
 
 * Staff Engineer SpringSource, VMware

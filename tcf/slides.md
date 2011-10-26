@@ -3,72 +3,44 @@
 
 
 !SLIDE incremental
-# Since Spring 2.5
+# Overview
 
-* Annotation-driven
-  * Convention over Configuration
+* Introduced in Spring 2.5
 * Unit and integration testing
-* ApplicationContext management
-  * XML config files
-* Transactional tests with rollback
-* JUnit and TestNG
+* Annotation-driven
+* Convention over Configuration
+* JUnit & TestNG
 
 
-!SLIDE incremental
-# Spring and Unit Testing
+!SLIDE incremental small
+# Spring & Unit Testing
 
-POJO-based programming model
-Program to interfaces
-IoC / Dependency Injection
-Out-of-container testability
-Testing mocks/stubs for various APIs:
-Servlet
-Portlet
-JNDI
-General purpose testing utilities
-ReflectionTestUtils
-ModelAndViewAssert
+* POJO-based programming model
+* Program to interfaces
+* IoC / Dependency Injection
+* Out-of-container testability
+* Testing mocks/stubs for various APIs: Servlet,  Portlet, JNDI
+* General purpose testing utilities
+  * `ReflectionTestUtils`
+  * `ModelAndViewAssert`
 
 
-!SLIDE incremental
-# Spring and Integration Testing
+!SLIDE incremental small
+# Spring & Integration Testing
 
-Context management & caching
-Dependency injection of test instances
-Transactional test management
-Abstract JUnit 3.8 based support classes are deprecated as of Spring 3.0
-The Spring TestContext Framework is the way forward
-
-!SLIDE incremental
-# TCF in a Nutshell
-
-Fully revised, annotation-based test framework
-Supports JUnit 4.5-4.7 and TestNG as well as JUnit 3.8
-Supersedes older JUnit 3.8 base classes
-AbstractDependencyInjection-SpringContextTests & friends
-They're still there for JDK 1.4, but are deprecated
-
-Convention over configuration
-Use only annotations
-Reasonable defaults that can be overridden
-Consistent support for Spring's core annotations
-Spring-specific integration testing functionality:
-Context management & caching
-Dependency injection of tests
-Transactional test management
-
-Agnostic of the testing framework in use
-Support unit and integration testing
-Extensible and highly configurable
-Support POJO test classes
-Provide base support classes where necessary and/or as a convenience
+* `ApplicationContext` management & caching
+* Dependency injection of test instances
+* Transactional test management
+  * with default rollback semantics
+* `SimpleJdbcTestUtils`
+* JUnit 3.8 support classes are deprecated as of Spring 3.0/3.1
 
 
 !SLIDE subsection small
 # Core Components
 
 
-!SLIDE incremental small
+!SLIDE incremental
 # `TestContext`
 
 * Tracks context for current test
@@ -76,31 +48,45 @@ Provide base support classes where necessary and/or as a convenience
 * Caches `ApplicationContext`
 
 
-!SLIDE incremental small
+!SLIDE incremental
 # `TestContextManager`
 
 * Manages the `TestContext`
 * Signals events to listeners:
-  * before any _before class methods_
-  * after _test instantiation_
-  * before any _before methods_
-  * after any _after methods_
-  * after any _after class methods_
+  * before: _before-class methods_
+  * after: _test instantiation_
+  * before: _before methods_
+  * after: _after methods_
+  * after: _after-class methods_
 
 
 !SLIDE incremental small
 # `TestExecutionListener` SPI
 
 * Reacts to test execution events
+  * Receives reference to current `TestContext`
 * Out of the box:
   * `DependencyInjectionTestExecutionListener`
   * `DirtiesContextTestExecutionListener`
   * `TransactionalTestExecutionListener`
 
 
-!SLIDE incremental
-# TestExecutionListener
-## _Class Diagram_
+!SLIDE center small
+# `TestExecutionListener`
+
+![Testing-TEL-CD.png](Testing-TEL-CD.png)
+
+
+!SLIDE center small
+# TEL: _Prepare Instance_
+
+![Testing-TEL-SD-prepareTestInstance.png](Testing-TEL-SD-prepareTestInstance.png)
+
+
+!SLIDE center small
+# TEL: _Befores and Afters_
+
+![Testing-TEL-SD-befores-and-afters.png](Testing-TEL-SD-befores-and-afters.png)
 
 
 !SLIDE incremental small
@@ -115,22 +101,24 @@ Provide base support classes where necessary and/or as a convenience
   * `DelegatingSmartContextLoader`
 
 
-!SLIDE incremental
-# ContextLoader
-## _Class Diagram_
+!SLIDE center small
+# `ContextLoader` 2.5
+
+![Testing-ContextLoader-CD-2.5.png](Testing-ContextLoader-CD-2.5.png)
 
 
-!SLIDE incremental
+!SLIDE center small
 # Putting it all together
+
+![Testing-TCF-CoreComponents.png](Testing-TCF-CoreComponents.png)
 
 
 !SLIDE incremental small
-# TestContext Annotations
+# Spring Test Annotations
 
 * Application Contexts
-  * `@ContextConfiguration` & `@DirtiesContext`
-* TestExecutionListeners
-  * `@TestExecutionListeners`
+  * `@ContextConfiguration`, `@DirtiesContext`
+* `@TestExecutionListeners`
 * Dependency Injection
   * `@Autowired`, `@Qualifier`, `@Inject`, ...
 * Transactions
@@ -138,10 +126,11 @@ Provide base support classes where necessary and/or as a convenience
 
 
 !SLIDE incremental
-# TestContext Annotations - JUnit
+# Spring JUnit Annotations
 
 * Testing Profiles
-  * `@IfProfileValue` & `@ProfileValueSourceConfiguration`
+  * _groups, not bean definition profiles_
+  * `@IfProfileValue`, `@ProfileValueSourceConfiguration`
 * JUnit extensions
   * `@ExpectedException`, `@Timed`, `@Repeat`
 
@@ -149,14 +138,14 @@ Provide base support classes where necessary and/or as a convenience
 !SLIDE incremental
 # Using the TestContext Framework
 
-* Use the `SpringJUnit4ClassRunner` for JUnit 4.5+
-* Instrument test class with `TestContextManager` for TestNG
-* Or extend one of the base classes
-  * `Abstract(Transactional)[Junit4|TestNG]SpringContextTests`
+* Use the `SpringJUnit4ClassRunner` for __JUnit__ 4.5+
+* Instrument test class with `TestContextManager` for __TestNG__
+* Extend one of the base classes
+  * `Abstract(Transactional)[JUnit4|TestNG]SpringContextTests`
 
 
 !SLIDE small
-# Annotated Test Class Example
+# Example: Annotated Test Class
 
 	@@@ java
 	@RunWith(SpringJUnit4ClassRunner.class)
@@ -187,3 +176,13 @@ Provide base support classes where necessary and/or as a convenience
 * SmartContextLoader SPI
 * Updated context cache key generation
 
+!SLIDE center small
+# `ContextLoader` 2.5
+
+![Testing-ContextLoader-CD-2.5.png](Testing-ContextLoader-CD-2.5.png)
+
+
+!SLIDE center small
+# `ContextLoader` 3.1
+
+![Testing-ContextLoader-CD-3.1.png](Testing-ContextLoader-CD-3.1.png)
