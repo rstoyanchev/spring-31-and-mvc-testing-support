@@ -10,6 +10,7 @@
 #### SpringOne 2GX
 #### October 28, 2011
 
+
 !SLIDE small
 # __Sam Brannen__
 
@@ -20,6 +21,7 @@
 * Previous SpringSource dm Server™ developer
 * Presenter on Spring, Java, OSGi, and testing
 
+
 !SLIDE small
 # __Rossen Stoyanchev__
 
@@ -29,7 +31,15 @@
 * Spring Web course author
 * NYC area
 
-!SLIDE subsection bullets
+
+!SLIDE subsection incremental
+# Goals of the Presentation
+
+* _Gain an overview of new testing features in Spring 3.1_
+* _Learn about the new Spring MVC<br /> Test Support project_
+
+
+!SLIDE subsection incremental
 # Agenda
 
 * Spring TestContext Framework
@@ -37,3 +47,14 @@
 * Testing with Environment Profiles
 * Spring MVC Test Support
 * Q&A
+
+
+!SLIDE incremental
+# Show of Hands...
+
+* JUnit / TestNG
+* Spring 2.5 / 3.0 / 3.1
+* Integration testing with Spring
+* Spring TestContext Framework
+* Spring MVC Test Support
+

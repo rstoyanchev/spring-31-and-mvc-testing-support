@@ -2,7 +2,7 @@
 # Spring TestContext Framework
 
 !SLIDE incremental
-# TestContext Framework 2.5
+# Since Spring 2.5
 
 * Annotation-driven
   * Convention over Configuration
@@ -13,9 +13,25 @@
 * JUnit and TestNG
 
 !SLIDE incremental
-# TestContext Framework 3.1
+# New in Spring 3.1
 
 * @Configuration classes
 * Environment profiles
 * SmartContextLoader SPI
 * Updated context cache key generation
+
+!SLIDE incremental
+# @Configuration Classes
+
+* ...
+
+!SLIDE incremental
+# @Configuration + XML
+
+* ...
+
+!SLIDE incremental
+# Environment Profiles
+
+* ...
+

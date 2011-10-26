@@ -1,4 +1,3 @@
-
 !SLIDE subsection
 # Resources (1)
 
@@ -15,9 +14,6 @@ __Sample Tests:__<br>
 
 !SLIDE subsection
 # Q&A
-
-!SLIDE subsection
-# Thank You!
 <br />
 ## Sam Brannen
 ### Web: <a href="http://www.swiftmind.com">Swiftmind.com</a>

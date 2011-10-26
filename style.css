@@ -1,0 +1,22 @@
+.subsection h1 {
+  color: white;
+  background: rgb(0, 150, 50);
+}
+
+.content {
+  color: black;
+  font-family: verdana, helvetica, arial;
+}
+
+h1, h2 {
+  /* color: rgb(79, 180, 226); */
+  color: rgb(0, 150, 50);
+  font-family: Georgia;
+}
+
+.footer::after {
+  position: absolute;
+  right: 120px;
+  bottom: 120px;
+  content: url(swiftmind.png);
+}
