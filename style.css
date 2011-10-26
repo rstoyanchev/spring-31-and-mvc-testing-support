@@ -14,6 +14,10 @@ h1, h2 {
   font-family: Georgia;
 }
 
+a, a:hover, a:visited {
+  color: blue;
+}
+
 .footer::after {
   position: absolute;
   right: 120px;

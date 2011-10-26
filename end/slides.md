@@ -1,16 +1,20 @@
 !SLIDE subsection
-# Resources (1)
+# In Closing ...
 
-TODO...
+!SLIDE incremental small
+# Resources – Core Spring
 
-!SLIDE subsection
-# Resources (2)
-<br><br>
-__Project Home:__<br>
-<a href="https://github.com/SpringSource/spring-test-mvc">https://github.com/SpringSource/spring-test-mvc</a>
-<br>
-__Sample Tests:__<br>
-<a href="https://github.com/SpringSource/spring-test-mvc/tree/master/src/test/java/org/springframework/test/web/server/samples">org.springframework.test.web.server.samples</a>
+* __Spring Framework__:<br /><a href="http://www.springsource.org/spring-core">http://www.springsource.org/spring-core</a>
+* __Reference Manual__: <a href="http://static.springsource.org/spring/docs/3.1.0.RC1/spring-framework-reference/html/">Spring 3.1 RC1</a>
+* __Forums__: <a href="http://forum.springframework.org">http://forum.springframework.org</a>
+* __JIRA__: <a href="https://jira.springsource.org">https://jira.springsource.org</a>
+* __<a href="http://shop.oreilly.com/product/9780596801946.do">Spring in a Nutshell</a>__ … _available in 2012_
+
+!SLIDE small
+# Resources – Spring MVC Test
+
+* __Project Home__:<br /><a href="https://github.com/SpringSource/spring-test-mvc">https://github.com/SpringSource/spring-test-mvc</a>
+* __Sample Tests__:<br /><a href="https://github.com/SpringSource/spring-test-mvc/tree/master/src/test/java/org/springframework/test/web/server/samples">org.springframework.test.web.server.samples</a>
 
 !SLIDE subsection
 # Q&A
