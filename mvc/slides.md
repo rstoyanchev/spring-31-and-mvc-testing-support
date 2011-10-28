@@ -1,78 +1,283 @@
 !SLIDE subsection
 # Spring MVC Test Support
 
-!SLIDE small
-# How To Test `@Controller`?
+!SLIDE
+# How Do To Test an `@Controller`?
+
+!SLIDE smaller
 
     @@@ java
 
     @Controller
-    @SessionAttributes("formBean")
-    public class FormController {
-    
-	    @ModelAttribute("formBean")
-	    public FormBean createFormBean() {
+    @RequestMapping("/accounts")
+    public class AccountController {
 
-		    // ...
-	    }
+     // ...
 
-    	@RequestMapping(...)
-	    public String processSubmit(
-                        @Valid FormBean formBean, 
-                        BindingResult result) {
-
-            // ...
+        @ModelAttribute
+        public Account getAccount(String number) {
+            return this.accountManager.getAccount(number);
         }
+
+        @RequestMapping(method = RequestMethod.POST)
+        public String save(@Valid Account account, 
+                            BindingResult result) {
+            if (result.hasErrors()) {
+                return "accounts/edit";
+            }
+            this.accountManager.saveOrUpdate(account);
+            return "redirect:accounts";
+        }
+
     }
 
-!SLIDE incremental
-# Unit Test
+!SLIDE bullets incremental
+# Unit Test?
 
-* Instantiate controller manually
-* Prepare inputs, invoke methods
-* Simple but not fully tested
-* MVC config, annotations, etc.
+* Create controller instance
+* Mock or stub services & repositories
 
-!SLIDE incremental
-# End-to-End Tests
+!SLIDE smaller
+# Example 
 
-* Selenium, JWebUnit, etc.
-* Everything is tested but more involved
-* Harder to maintain
-* _Wait, didn't we unit test controllers?_
+    @@@ java
 
-.notes Requires running container, takes more time and resources, not likely to be run frequently.
+    @Test
+    public void testSave() {
 
-!SLIDE incremental
-# Ideally We'd Like To...
+        Account account = new Account();
+        BindingResult result = 
+            new BeanPropertyBindingResult(account, "account");
 
-* Test controllers once, fully
-* Include MVC config, annotations, etc.
-* Remain lightweight and fast
-* Controller Unit Test++
 
-!SLIDE incremental 
-# Spring MVC Test Support
 
-* Small framework built on `spring-test`
+
+
+
+        
+
+        
+
+
+    }
+
+!SLIDE smaller
+# Example 
+
+    @@@ java
+
+    @Test
+    public void testSave() {
+
+        Account account = new Account();
+        BindingResult result = 
+            new BeanPropertyBindingResult(account, "account");
+
+        AccountManager mgr = createMock(AccountManager.class);
+        mgr.saveOrUpdate(account);
+        replay(mgr);
+
+
+        
+
+        
+
+
+    }
+
+!SLIDE smaller
+# Example 
+
+    @@@ java
+
+    @Test
+    public void testSave() {
+
+        Account account = new Account();
+        BindingResult result = 
+            new BeanPropertyBindingResult(account, "account");
+
+        AccountManager mgr = createMock(AccountManager.class);
+        mgr.saveOrUpdate(account);
+        replay(mgr);
+
+        AccountController contrlr = new AccountController(mgr);
+        
+        String view = contrlr.save(account, result);
+        
+
+
+    }
+
+!SLIDE smaller
+# Example
+
+    @@@ java
+
+    @Test
+    public void testSave() {
+
+        Account account = new Account();
+        BindingResult result = 
+            new BeanPropertyBindingResult(account, "account");
+
+        AccountManager mgr = createMock(AccountManager.class);
+        mgr.saveOrUpdate(account);
+        replay(mgr);
+
+        AccountController contrlr = new AccountController(mgr);
+        
+        String view = contrlr.save(account, result);
+        
+        assertEquals("redirect:accounts", view);
+        verify(mgr);
+    }
+
+!SLIDE smaller
+# Example With Failure
+
+    @@@ java
+
+    @Test
+    public void testSave() {
+
+        Account account = new Account();
+        BindingResult result = 
+            new BeanPropertyBindingResult(account, "account");
+
+        result.reject("error.code", "default message")
+
+
+
+
+
+        
+
+        
+
+
+    }
+
+!SLIDE smaller
+# Example With Failure
+
+    @@@ java
+
+    @Test
+    public void testSave() {
+
+        Account account = new Account();
+        BindingResult result = 
+            new BeanPropertyBindingResult(account, "account");
+
+        result.reject("error.code", "default message")
+
+        AccountManager mgr = createMock(AccountManager.class);
+        replay(mgr);
+
+
+        
+
+        
+
+
+    }
+
+!SLIDE smaller
+# Example With Failure
+
+    @@@ java
+
+    @Test
+    public void testSave() {
+
+        Account account = new Account();
+        BindingResult result = 
+            new BeanPropertyBindingResult(account, "account");
+
+        result.reject("error.code", "default message")
+
+        AccountManager mgr = createMock(AccountManager.class);
+        replay(mgr);
+
+        AccountController contrlr = new AccountController(mgr);
+        
+        String view = contrlr.save(account, result);
+        
+        assertEquals("accounts/edit", view);
+        verify(mgr);
+    }
+
+!SLIDE incremental bullets
+# Not Fully Tested
+
+* Request mappings
+* Binding errors
+* Type conversion 
+* Etc.
+
+!SLIDE incremental bullets
+# Integration Test?
+
+* Selenium
+* JWebUnit
+* etc.
+
+!SLIDE incremental bullets
+# It Requires..
+
+* A running servlet container
+* More time to execute
+* More effort to maintain
+* Server is a black box
+
+!SLIDE
+# Actually...
+
+!SLIDE incremental bullets
+# it's an end-to-end test
+
+!SLIDE incremental bullets
+# the only way to verify..
+
+* Client-side behavior
+* Interaction with other server instances
+* Redis, Rabbit, etc.
+
+!SLIDE incremental bullets
+# We'd also like to..
+
+* Test controllers once!
+* Fully & quickly
+* Execute tests often
+
+!SLIDE incremental bullets
+# In summary..
+
+* We can't replace the need for end-to-end tests
+* But we can minimize errors
+* Have confidence in @MVC code
+* During end-to-end tests
+
+
+!SLIDE incremental bullets
+# Spring MVC Test
+
+* Built on `spring-test`
 * No Servlet container
 * Drives Spring MVC infrastructure
 * Both server & client-side test support <br> (i.e. `RestTemplate` code)
-* Inspired by `spring-ws-test`
+* _Inspired by `spring-ws-test`_
 
-!SLIDE incremental
-# Unit vs. Integration Style
+!SLIDE incremental bullets
+# The Approach
 
-* A bit of both
-* Aids existing `@Controller` unit tests
-* Does not replace end-to-end tests
-* Ensures Spring MVC stuff works
-* Without the overhead
-
-.notes For example, the vFabric management team has a JSON-based REST API; unit tests verify JSON rendering using @Controllers; integration tests involve multiple tc Server and other instances, which need to run regardless.
+* Re-use controller test fixtures
+* I.e. mocked services & repositories
+* Invoke `@Controller` classes through @MVC infrastructure
 
 !SLIDE small
-# Server-Side Test Example
+# Example
 
     @@@ java
 
@@ -90,20 +295,19 @@
       .andExpect(model().size(1))
       .andExpect(model().hasAttributes("person"));
 
-!SLIDE incremental
-# Static Imports
-## (_Ctrl+Shift+T_ __`"MockMvc*"`__)
+!SLIDE incremental bullets
+# Under the Covers
 
-* `MockMvcBuilders.*`
-  * Spring MVC setup
-* `MockMvcRequestBuilders.*`
-  * request building
-* `MockMvcResultActions.*`
-  * expectation setting
+* Mock `request/response` from `spring-test`
+* `DispatcherServlet` replacement
+* Multiple ways to initialize MVC infrastructure
+* Save results for expectations
+
+!SLIDE incremental bullets
+# Ways To Initialize MVC Infrastructure
 
 !SLIDE small
-# Spring MVC Setup
-## (from existing configuration)
+# From Existing XML Config
 
     @@@ java
 
@@ -115,6 +319,11 @@
           .configureWebAppRootDir(warDir, false)
           .build();
 
+!SLIDE small
+# From Existing Java Config
+
+    @@@ java
+
     // Java config
 
     MockMvc mockMvc = 
@@ -123,11 +332,8 @@
           .configureWebAppRootDir(warDir, false)
           .build();
 
-.notes The ApplicationContext is scanned for MVC infrastructure components like the DispatcherServlet does.
-
 !SLIDE small
-# Spring MVC Setup
-## (standalone)
+# Manually 
 
     @@@ java
 
@@ -141,38 +347,167 @@
               .setLocaleResolver(..)
               .build();
 
-.notes MVC infrastructure components are directly instantiated without scanning an ApplicationContext.
+!SLIDE incremental bullets
+# About Manual Setup
 
-!SLIDE incremental
-# Under the Covers
+* MVC components instantiated directly 
+* Not looked up in Spring context
+* Focused, readable tests
+* But must verify MVC config separately
 
-* Mock `request/response` from `spring-test`
-* `DispatcherServlet` replacement
-* Drives Spring MVC infrastructure
-* Exposes results for expectation setting
-
-!SLIDE smaller
-# Expectations
+!SLIDE incremental bullets smaller
+# `TestContext` Framework Example
 
     @@@ java
 
-    MockMvc mockMvc = 
-      standaloneSetup(new PersonController()).build();
+    @RunWith(SpringJUnit4ClassRunner.class)
+    @ContextConfiguration(
+		    locations={"/org/example/servlet-context.xml"})
+    public class TestContextTests {
 
-    mockMvc.perform(get("/"))
-      .andExpect(response().status().isOk())
-      .andExpect(response().contentType(MediaType))
-      .andExpect(response().content().isEqualTo(String))
-      .andExpect(response().content().isEqualToXml(String))
-      .andExpect(response().content().xpath(String).exists())
-      .andExpect(response().content().jsonPath(String).exists())
-      .andExpect(response().forwardedUrl(String))
-      .andExpect(response().redirectedUrl(String))
-      .andExpect(model().size(int))
-      .andExpect(model().hasAttributes(String...))
-      .andPrint(toConsole());
+      @Autowired
+      private WebApplicationContext wac;
 
-    // Many more available...
+      @Before
+      public void setup() {
+        MockMvc mockMvc = 
+            MockMvcBuilders.webApplicationContextSetup(this.wac)
+              .build();
+      }
+
+    }
+
+!SLIDE incremental bullets
+# `TestContext` Framework
+
+* Caches loaded Spring configuration
+* Potentially across all tests!
+
+!SLIDE incremental bullets
+# However..
+
+* `WebApplicationContext` not supported yet
+* <a href="http://jira.springframework.org/browse/SPR-5243">To be supported</a> in Spring 3.2
+
+!SLIDE incremental bullets
+# In the mean time..
+
+* You can use a custom `ContextLoader`
+* <a href="https://github.com/SpringSource/spring-test-mvc/blob/master/src/test/java/org/springframework/test/web/server/samples/context/TestContextTests.java">Example exists</a> in `spring-test-mvc`
+
+!SLIDE incremental bullets
+# Step 1
+
+* Add static imports
+* `MockMvcBuilders.*`
+* `MockMvcRequestBuilders.*`
+* `MockMvcResultActions.*`
+
+!SLIDE incremental bullets
+# Easy to remember..
+
+* `MockMvc*`
+
+!SLIDE incremental bullets
+# Also in Eclipse..
+
+* Add `MockMvc*` classes in _Preferences_
+* _Java -> Editor -> Favorites_
+* Helps content assist
+
+!SLIDE smaller
+# Step 2 
+## Initialize MVC infrastructure
+
+    @@@ java
+
+    String contextLoc = "classpath:appContext.xml";
+    String warDir = "src/main/webapp";
+
+    MockMvc mockMvc = xmlConfigSetup("classpath:appContext.xml")
+        .configureWebAppRootDir(warDir, false)
+        .build()
+
+
+
+
+
+
+
+
+
+    // ...
+
+!SLIDE smaller
+# Step 3
+## Build Request
+
+    @@@ java
+
+    String contextLoc = "classpath:appContext.xml";
+    String warDir = "src/main/webapp";
+
+    MockMvc mockMvc = xmlConfigSetup("classpath:appContext.xml")
+        .configureWebAppRootDir(warDir, false)
+        .build()
+
+    mockMvc.perform(get("/").accept(MediaType.APPLICATION_XML))
+
+
+
+
+
+
+
+    // ...
+
+!SLIDE smaller
+# Step 4
+## Add Expectations
+
+    @@@ java
+
+    String contextLoc = "classpath:appContext.xml";
+    String warDir = "src/main/webapp";
+
+    MockMvc mockMvc = xmlConfigSetup("classpath:appContext.xml")
+        .configureWebAppRootDir(warDir, false)
+        .build()
+
+    mockMvc.perform(get("/").accept(MediaType.APPLICATION_XML))
+          .andExpect(response().status().isOk())
+          .andExpect(response().contentType(MediaType))
+          .andExpect(response().content().xpath(String).exists())
+          .andExpect(response().redirectedUrl(String))
+          .andExpect(model().hasAttributes(String...));
+
+
+    // ...
+
+
+!SLIDE smaller
+# Step 5
+## Debug
+
+    @@@ java
+
+    String contextLoc = "classpath:appContext.xml";
+    String warDir = "src/main/webapp";
+
+    MockMvc mockMvc = xmlConfigSetup("classpath:appContext.xml")
+        .configureWebAppRootDir(warDir, false)
+        .build()
+
+    mockMvc.perform(get("/").accept(MediaType.APPLICATION_XML))
+          .andPrint(toConsole());
+
+
+
+
+
+
+    // ...
+
 
 !SLIDE code
 # Demo
@@ -196,25 +531,28 @@ __Sample Tests:__<br>
         .andExpect(headerContains(String, String))
         .andRespond(withResponse(String, HttpHeaders));
 
-!SLIDE incremental small
+!SLIDE incremental bullets small
 # Project Availability
 
-* Source on github
-  * `github.com/SpringSource/spring-test-mvc`
-* Nightly snapshot published
-  * `http://maven.springframework.org/milestone`
+* <a href="github.com/SpringSource/spring-test-mvc">`github.com/SpringSource/spring-test-mvc`</a>
 * Request for feedback!
+* Send comments
+* Pull requests
 
-!SLIDE incremental
-# Roadmap
+!SLIDE incremental bullets smaller
+# Nightly Snapshot Available
 
-* Equalize client & server-side options (xpath, jsonpath, etc.)
-* More request building options
-* _&lt;your feedback&gt;_...
-* The more, the better
+    @@@ xml
 
-!SLIDE incremental
-# Timeline
+    <repository>
+        <id>org.springframework.maven.snapshot</id>
+        <name>Spring Maven Snapshot Repository</name>
+        <url>http://maven.springframework.org/snapshot</url>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
 
-* Release candidate by year end
-* Possible inclusion in Spring 3.2
