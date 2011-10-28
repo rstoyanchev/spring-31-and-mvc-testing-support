@@ -63,7 +63,7 @@
   * _groups, not bean definition profiles_
   * `@IfProfileValue`, `@ProfileValueSourceConfiguration`
 * JUnit extensions
-  * `@ExpectedException`, `@Timed`, `@Repeat`
+  * `@Timed`, `@Repeat`
 
 
 !SLIDE incremental
