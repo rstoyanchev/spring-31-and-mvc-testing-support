@@ -56,5 +56,6 @@
 * Spring 2.5 / 3.0 / 3.1
 * Integration testing with Spring
 * Spring TestContext Framework
+* Spring MVC
 * Spring MVC Test Support
 
