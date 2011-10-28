@@ -4,8 +4,7 @@
   "sections": [
     {"section":"intro"},
     {"section":"tcf"},
-    {"section":"javaconfig"},
-    {"section":"profiles"},
+    {"section":"new-in-3.1"},
     {"section":"mvc"},
     {"section":"end"}
   ]

@@ -298,11 +298,9 @@
 # `TestExecutionListener`
 ![Testing-TEL-CD.png](Testing-TEL-CD.png)
 
-
 !SLIDE center small transition=scrollUp
 # TEL: _Prepare Instance_
 ![Testing-TEL-SD-prepareTestInstance.png](Testing-TEL-SD-prepareTestInstance.png)
-
 
 !SLIDE center small transition=scrollLeft
 # TEL: _Befores and Afters_
@@ -323,40 +321,7 @@
 # `ContextLoader` 2.5
 ![Testing-ContextLoader-CD-2.5.png](Testing-ContextLoader-CD-2.5.png)
 
-
 !SLIDE center small transition=scrollUp
 # Putting it all together
 ![Testing-TCF-CoreComponents.png](Testing-TCF-CoreComponents.png)
 
-
-!SLIDE incremental
-# New in Spring 3.1
-
-* @Configuration classes
-* Environment profiles
-* SmartContextLoader SPI
-* Updated context cache key generation
-
-
-!SLIDE incremental small
-# `SmartContextLoader` SPI
-
-* Strategy for loading application contexts
-  * from resource locations _or_ `@Configuration` classes
-* Supports environment profiles
-* Supersedes `ContextLoader`
-* Out of the box:
-  * `GenericXmlContextLoader`
-  * `GenericPropertiesContextLoader`
-  * `AnnotationConfigContextLoader`
-  * `DelegatingSmartContextLoader`
-
-
-!SLIDE center small
-# `ContextLoader` 2.5
-![Testing-ContextLoader-CD-2.5.png](Testing-ContextLoader-CD-2.5.png)
-
-
-!SLIDE center small
-# `ContextLoader` 3.1
-![Testing-ContextLoader-CD-3.1.png](Testing-ContextLoader-CD-3.1.png)
