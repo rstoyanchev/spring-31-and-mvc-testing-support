@@ -35,7 +35,7 @@
 !SLIDE subsection incremental
 # Goals of the Presentation
 
-* _Gain an overview of new testing features in Spring 3.1_
+* _Gain an overview of testing features in Spring 3.1_
 * _Learn about the new Spring MVC<br /> Test Support project_
 
 
