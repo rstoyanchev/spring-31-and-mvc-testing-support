@@ -1,14 +1,22 @@
 !SLIDE subsection
 # Spring TestContext Framework
 
-
-!SLIDE incremental
-# Overview
-
+!SLIDE bullets center
 * Introduced in Spring 2.5
-* Unit and integration testing
+
+!SLIDE bullets center
+* Revised in Spring 3.1
+
+!SLIDE bullets center
+* Unit _and_ integration testing
+
+!SLIDE bullets center
 * Annotation-driven
+
+!SLIDE bullets center
 * Convention over Configuration
+
+!SLIDE bullets center
 * JUnit & TestNG
 
 
@@ -34,6 +42,221 @@
   * with default rollback semantics
 * `SimpleJdbcTestUtils`
 * JUnit 3.8 support classes are deprecated as of Spring 3.0/3.1
+
+
+!SLIDE incremental smaller
+# Spring Test Annotations
+
+* Application Contexts
+  * `@ContextConfiguration`, `@DirtiesContext`
+* `@TestExecutionListeners`
+* Dependency Injection
+  * `@Autowired`, `@Qualifier`, `@Inject`, …
+* Transactions
+  * `@Transactional`, `@TransactionConfiguration`, `@Rollback`, `@BeforeTransaction`, `@AfterTransaction`
+
+
+!SLIDE incremental
+# Spring JUnit Annotations
+
+* Testing Profiles
+  * _groups, not bean definition profiles_
+  * `@IfProfileValue`, `@ProfileValueSourceConfiguration`
+* JUnit extensions
+  * `@ExpectedException`, `@Timed`, `@Repeat`
+
+
+!SLIDE incremental
+# Using the TestContext Framework
+
+* Use the `SpringJUnit4ClassRunner` for __JUnit__ 4.5+
+* Instrument test class with `TestContextManager` for __TestNG__
+* Extend one of the base classes
+  * `Abstract(Transactional)[JUnit4|TestNG]SpringContextTests`
+
+
+!SLIDE small transition=fade
+# Example: @POJO Test Class
+	@@@ java
+
+
+
+
+	public class OrderServiceTests {
+
+
+
+
+
+
+
+
+
+
+	  @Test
+	  public void testOrderService() { … }
+	}
+
+
+!SLIDE small
+# Example: @POJO Test Class
+	@@@ java
+	@RunWith(SpringJUnit4ClassRunner.class)
+
+
+
+	public class OrderServiceTests {
+
+
+
+
+
+
+
+
+
+
+	  @Test
+	  public void testOrderService() { … }
+	}
+
+
+!SLIDE small
+# Example: @POJO Test Class
+	@@@ java
+	@RunWith(SpringJUnit4ClassRunner.class)
+	@ContextConfiguration
+
+
+	public class OrderServiceTests {
+
+
+
+
+
+
+
+
+
+
+	  @Test
+	  public void testOrderService() { … }
+	}
+
+
+!SLIDE small
+# Example: @POJO Test Class
+	@@@ java
+	@RunWith(SpringJUnit4ClassRunner.class)
+	@ContextConfiguration // defaults to
+	// OrderServiceTests-context.xml in same package
+
+	public class OrderServiceTests {
+
+
+
+
+
+
+
+
+
+
+	  @Test
+	  public void testOrderService() { … }
+	}
+
+
+!SLIDE small
+# Example: @POJO Test Class
+	@@@ java
+	@RunWith(SpringJUnit4ClassRunner.class)
+	@ContextConfiguration // defaults to
+	// OrderServiceTests-context.xml in same package
+
+	public class OrderServiceTests {
+
+	  @Autowired
+	  private OrderService orderService;
+
+
+
+
+
+
+
+	  @Test
+	  public void testOrderService() { … }
+	}
+
+
+!SLIDE small
+# Example: @POJO Test Class
+	@@@ java
+	@RunWith(SpringJUnit4ClassRunner.class)
+	@ContextConfiguration // defaults to
+	// OrderServiceTests-context.xml in same package
+	@Transactional
+	public class OrderServiceTests {
+
+	  @Autowired
+	  private OrderService orderService;
+
+
+
+
+
+
+
+	  @Test
+	  public void testOrderService() { … }
+	}
+
+
+!SLIDE small
+# Example: @POJO Test Class
+	@@@ java
+	@RunWith(SpringJUnit4ClassRunner.class)
+	@ContextConfiguration // defaults to
+	// OrderServiceTests-context.xml in same package
+	@Transactional
+	public class OrderServiceTests {
+
+	  @Autowired
+	  private OrderService orderService;
+
+	  @BeforeTransaction
+	  public void verifyInitialDatabaseState() { … }
+
+
+
+
+	  @Test
+	  public void testOrderService() { … }
+	}
+
+
+!SLIDE small
+# Example: @POJO Test Class
+	@@@ java
+	@RunWith(SpringJUnit4ClassRunner.class)
+	@ContextConfiguration // defaults to
+	// OrderServiceTests-context.xml in same package
+	@Transactional
+	public class OrderServiceTests {
+
+	  @Autowired
+	  private OrderService orderService;
+
+	  @BeforeTransaction
+	  public void verifyInitialDatabaseState() { … }
+
+	  @Before
+	  public void setUpTestDataWithinTransaction() { … }
+
+	  @Test
+	  public void testOrderService() { … }
+	}
 
 
 !SLIDE subsection small
@@ -71,101 +294,39 @@
   * `TransactionalTestExecutionListener`
 
 
-!SLIDE center small
+!SLIDE center small transition=fade
 # `TestExecutionListener`
-
 ![Testing-TEL-CD.png](Testing-TEL-CD.png)
 
 
-!SLIDE center small
+!SLIDE center small transition=scrollUp
 # TEL: _Prepare Instance_
-
 ![Testing-TEL-SD-prepareTestInstance.png](Testing-TEL-SD-prepareTestInstance.png)
 
 
-!SLIDE center small
+!SLIDE center small transition=scrollLeft
 # TEL: _Befores and Afters_
-
 ![Testing-TEL-SD-befores-and-afters.png](Testing-TEL-SD-befores-and-afters.png)
 
 
 !SLIDE incremental small
 # `ContextLoader` SPI
 
-* `ContextLoader` & `SmartContextLoader` SPIs
-  * Strategy for loading application contexts
+* Strategy for loading application contexts
+  * from resource locations
 * Out of the box:
   * `GenericXmlContextLoader`
   * `GenericPropertiesContextLoader`
-  * `AnnotationConfigContextLoader`
-  * `DelegatingSmartContextLoader`
 
 
 !SLIDE center small
 # `ContextLoader` 2.5
-
 ![Testing-ContextLoader-CD-2.5.png](Testing-ContextLoader-CD-2.5.png)
 
 
-!SLIDE center small
+!SLIDE center small transition=scrollUp
 # Putting it all together
-
 ![Testing-TCF-CoreComponents.png](Testing-TCF-CoreComponents.png)
-
-
-!SLIDE incremental small
-# Spring Test Annotations
-
-* Application Contexts
-  * `@ContextConfiguration`, `@DirtiesContext`
-* `@TestExecutionListeners`
-* Dependency Injection
-  * `@Autowired`, `@Qualifier`, `@Inject`, ...
-* Transactions
-  * `@Transactional`, `@TransactionConfiguration`, `@Rollback`, `@BeforeTransaction`, `@AfterTransaction`
-
-
-!SLIDE incremental
-# Spring JUnit Annotations
-
-* Testing Profiles
-  * _groups, not bean definition profiles_
-  * `@IfProfileValue`, `@ProfileValueSourceConfiguration`
-* JUnit extensions
-  * `@ExpectedException`, `@Timed`, `@Repeat`
-
-
-!SLIDE incremental
-# Using the TestContext Framework
-
-* Use the `SpringJUnit4ClassRunner` for __JUnit__ 4.5+
-* Instrument test class with `TestContextManager` for __TestNG__
-* Extend one of the base classes
-  * `Abstract(Transactional)[JUnit4|TestNG]SpringContextTests`
-
-
-!SLIDE small
-# Example: Annotated Test Class
-
-	@@@ java
-	@RunWith(SpringJUnit4ClassRunner.class)
-	@ContextConfiguration
-	// defaults to MyTests-context.xml in same package
-	@Transactional
-	public class MyTests {
-
-	  @Autowired
-	  private MyService myService;
-
-	  @BeforeTransaction
-	  public void verifyInitialDatabaseState() { … }
-
-	  @Before
-	  public void setUpTestDataWithinTransaction() { … }
-
-	  @Test
-	  public void myTest() { … }
-	}
 
 
 !SLIDE incremental
@@ -176,13 +337,26 @@
 * SmartContextLoader SPI
 * Updated context cache key generation
 
+
+!SLIDE incremental small
+# `SmartContextLoader` SPI
+
+* Strategy for loading application contexts
+  * from resource locations _or_ `@Configuration` classes
+* Supports environment profiles
+* Supersedes `ContextLoader`
+* Out of the box:
+  * `GenericXmlContextLoader`
+  * `GenericPropertiesContextLoader`
+  * `AnnotationConfigContextLoader`
+  * `DelegatingSmartContextLoader`
+
+
 !SLIDE center small
 # `ContextLoader` 2.5
-
 ![Testing-ContextLoader-CD-2.5.png](Testing-ContextLoader-CD-2.5.png)
 
 
 !SLIDE center small
 # `ContextLoader` 3.1
-
 ![Testing-ContextLoader-CD-3.1.png](Testing-ContextLoader-CD-3.1.png)
