@@ -1,14 +1,23 @@
 !SLIDE subsection
 # In Closing ...
 
-!SLIDE small
-# Resources – Spring MVC Test
+!SLIDE smaller bullets
+# This Presentation
+<br>
+Source:<br>
+<a href="http://rstoyanchev.github.com/spring-31-and-mvc-test/">rstoyanchev.github.com/spring-31-and-mvc-test</a>
+<br>
+Slides:<br>
+<a href="http://rstoyanchev.github.com/spring-31-and-mvc-test">http://rstoyanchev.github.com/spring-31-and-mvc-test</a>
+
+!SLIDE smaller
+# Resources for Spring MVC Test
 
 * __Project Home__:<br /><a href="https://github.com/SpringSource/spring-test-mvc">https://github.com/SpringSource/spring-test-mvc</a>
 * __Sample Tests__:<br /><a href="https://github.com/SpringSource/spring-test-mvc/tree/master/src/test/java/org/springframework/test/web/server/samples">org.springframework.test.web.server.samples</a>
 
 !SLIDE incremental small
-# Resources – Core Spring
+# Resources for Core Spring
 
 * __Spring Framework__:<br /><a href="http://www.springsource.org/spring-core">http://www.springsource.org/spring-core</a>
 * __Reference Manual__: <a href="http://static.springsource.org/spring/docs/3.1.0.RC1/spring-framework-reference/html/">Spring 3.1 RC1</a>
