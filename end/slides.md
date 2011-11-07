@@ -1,14 +1,11 @@
 !SLIDE subsection
 # In Closing ...
 
-!SLIDE smaller bullets
+!SLIDE incremental smaller
 # This Presentation
-<br>
-Source:<br>
-<a href="http://rstoyanchev.github.com/spring-31-and-mvc-test/">rstoyanchev.github.com/spring-31-and-mvc-test</a>
-<br>
-Slides:<br>
-<a href="http://rstoyanchev.github.com/spring-31-and-mvc-test">http://rstoyanchev.github.com/spring-31-and-mvc-test</a>
+
+* __Source__:<br /><a href="https://github.com/rstoyanchev/spring-31-and-mvc-testing-support">https://github.com/rstoyanchev/spring-31-and-mvc-testing-support</a>
+* __Slides__:<br /><a href="http://rstoyanchev.github.com/spring-31-and-mvc-test">http://rstoyanchev.github.com/spring-31-and-mvc-test</a>
 
 !SLIDE smaller
 # Resources for Spring MVC Test
