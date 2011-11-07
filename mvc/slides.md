@@ -2,7 +2,7 @@
 # Spring MVC Test Support
 
 !SLIDE
-# How Do To Test an `@Controller`?
+# How Do You Test an `@Controller`?
 
 !SLIDE smaller
 
@@ -224,7 +224,7 @@
 * etc.
 
 !SLIDE incremental bullets
-# It Requires..
+# It Requires...
 
 * A running servlet container
 * More time to execute
@@ -238,21 +238,21 @@
 # it's an end-to-end test
 
 !SLIDE incremental bullets
-# the only way to verify..
+# the only way to verify...
 
 * Client-side behavior
 * Interaction with other server instances
 * Redis, Rabbit, etc.
 
 !SLIDE incremental bullets
-# We'd also like to..
+# We'd also like to...
 
 * Test controllers once!
 * Fully & quickly
 * Execute tests often
 
 !SLIDE incremental bullets
-# In summary..
+# In summary...
 
 * We can't replace the need for end-to-end tests
 * But we can minimize errors
@@ -384,13 +384,13 @@
 * Potentially across all tests!
 
 !SLIDE incremental bullets
-# However..
+# However...
 
 * `WebApplicationContext` not supported yet
 * <a href="http://jira.springframework.org/browse/SPR-5243">To be supported</a> in Spring 3.2
 
 !SLIDE incremental bullets
-# In the mean time..
+# In the mean time...
 
 * You can use a custom `ContextLoader`
 * <a href="https://github.com/SpringSource/spring-test-mvc/blob/master/src/test/java/org/springframework/test/web/server/samples/context/TestContextTests.java">Example exists</a> in `spring-test-mvc`
@@ -404,12 +404,12 @@
 * `MockMvcResultActions.*`
 
 !SLIDE incremental bullets
-# Easy to remember..
+# Easy to remember...
 
 * `MockMvc*`
 
 !SLIDE incremental bullets
-# Also in Eclipse..
+# Also in Eclipse...
 
 * Add `MockMvc*` classes in _Preferences_
 * _Java -> Editor -> Favorites_
